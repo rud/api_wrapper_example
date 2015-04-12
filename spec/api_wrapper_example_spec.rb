@@ -2,10 +2,6 @@ require 'spec_helper'
 
 describe ApiWrapperExample do
   it 'has a version number' do
-    expect(ApiWrapperExample::VERSION).not_to be nil
-  end
-
-  it 'does something useful' do
-    expect(false).to eq(true)
+    assert ApiWrapperExample::VERSION
   end
 end

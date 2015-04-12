@@ -18,5 +18,14 @@ namespace :test do
   end
 end
 
+desc 'Run tests'
+Rake::TestTask.new(:test) do |t|
+  t.libs << 'spec'
+  t.pattern = 'spec/**/*_spec.rb'
+  t.verbose = false
+end
+
+task default: :test
+
 desc 'Do what a CI server would do'
-task ci: 'test:rubocop'
+task ci: [:test, 'test:rubocop']
