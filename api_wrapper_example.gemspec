@@ -34,5 +34,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'minitest'
   spec.add_development_dependency 'pry'
-  spec.add_development_dependency 'sinatra'
+  spec.add_development_dependency 'sinatra', '~> 1.4.5'
 end
