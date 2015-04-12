@@ -28,7 +28,9 @@ module ApiWrapperExample
 
     # POST /v1/mittens/name
     def create_mitten(name:, color:)
-      post("v1/mittens/#{name}", color: color)
+      post("v1/mittens/#{name}", color: color) do |response|
+        yield response if block_given?
+      end
     end
 
     protected
