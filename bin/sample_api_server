@@ -21,9 +21,13 @@ class SampleApiServer < Sinatra::Base
   get '/v1/mittens/:name' do |name|
     request_processing_delay
 
-    mitten = ALL_MITTENS[name]
-    if mitten
-      [200, json(mitten)]
+    mitten_color = ALL_MITTENS[name]
+
+    if mitten_color
+      [200, json(
+        'name' => name,
+        'color' => mitten_color
+      )]
     else
       [404, json(
         'status' => 'error',
