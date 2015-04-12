@@ -2,3 +2,48 @@
 
 require 'bundler/setup'
 require 'sinatra'
+require 'json'
+
+ALL_MITTENS = {}
+
+# Demonstration implementation of an external API server to be wrapped
+class SampleApiServer < Sinatra::Base
+  # curl "http://localhost:9020/v1/mittens"
+  get '/v1/mittens' do
+    request_processing_delay
+
+    json(ALL_MITTENS)
+  end
+
+  # curl -X POST -d '' "http://localhost:9020/v1/mittens/left_hand?color=red"
+  post '/v1/mittens/:name' do |name|
+    request_processing_delay
+
+    if ALL_MITTENS.key?(name)
+      halt [
+        409,
+        json(
+          'status' => 'error',
+          'message' => 'duplicate_key_error'
+        )
+      ]
+    end
+
+    ALL_MITTENS[name] = params.fetch('color')
+    [201, json('status' => 'ok')]
+  end
+
+  private
+
+  def json(payload)
+    JSON.dump(payload)
+  end
+
+  def request_processing_delay
+    warn 'Processing request..'
+    sleep 1
+    warn 'Processing done'
+  end
+end
+
+use SampleApiServer
