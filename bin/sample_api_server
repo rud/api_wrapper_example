@@ -8,6 +8,7 @@ ALL_MITTENS = {}
 
 # Demonstration implementation of an external API server to be wrapped
 class SampleApiServer < Sinatra::Base
+  # Index of all currently registered mittens
   # curl "http://localhost:9020/v1/mittens"
   get '/v1/mittens' do
     request_processing_delay
@@ -15,7 +16,13 @@ class SampleApiServer < Sinatra::Base
     json(ALL_MITTENS)
   end
 
-  # curl -X POST -d '' "http://localhost:9020/v1/mittens/left_hand?color=red"
+  # Register a new mitten under :name. Note the name has to be unique,
+  # and the :color parameter is required.
+  #
+  # Sample invocation:
+  #   name: left_hand
+  #   color: red
+  #   curl -X POST -d '' "http://localhost:9020/v1/mittens/left_hand?color=red"
   post '/v1/mittens/:name' do |name|
     request_processing_delay
 
