@@ -26,10 +26,24 @@ module ApiWrapperExample
       get 'v1/mittens'
     end
 
+    # POST /v1/mittens/name
+    def create_mitten(name:, color:)
+      post("v1/mittens/#{name}", color: color)
+    end
+
     protected
 
     def get(path, params = {})
       response = connection.get do |request|
+        request.path = path
+        request.params = params unless params.empty?
+      end
+      yield response if block_given?
+      response.body
+    end
+
+    def post(path, params)
+      response = connection.post do |request|
         request.path = path
         request.params = params unless params.empty?
       end

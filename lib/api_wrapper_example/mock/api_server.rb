@@ -14,6 +14,12 @@ module ApiWrapperExample
         incomplete_mock
       end
 
+      # Fallback to ease implementing missing methods:
+      post '/*' do |path|
+        warn "POST #{path} (#{params.inspect}) - unsupported"
+        incomplete_mock
+      end
+
       private
 
       def incomplete_mock
