@@ -4,4 +4,4 @@ require 'minitest/autorun'
 
 require 'api_wrapper_example'
 
-# Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+Dir['spec/support/**/*.rb'].each { |f| require_relative "../#{f}" }
