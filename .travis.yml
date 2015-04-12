@@ -3,5 +3,6 @@ rvm:
   - 2.2.1
 before_install:
   - gem install bundler --version '~> 1.8'
+cache: bundler
 script:
   - bundle exec rake ci
