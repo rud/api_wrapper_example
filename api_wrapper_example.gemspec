@@ -14,7 +14,10 @@ Gem::Specification.new do |spec|
     Wrapping an API in a convenient gem requires making quite a few
     design decisions. This is one handy way of structuring and
     testing everything, in addition to making a tested mock-version
-    of the API available.
+    of the API available. By building in mocking, you can develop
+    against a simulated version of the external API, greatly
+    simplifying the development of your application using this
+    API wrapper gem.
   DESC
   spec.homepage      = 'https://github.com/rud/api_wrapper_example'
   spec.license       = 'MIT'
@@ -31,4 +34,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop'
   spec.add_development_dependency 'minitest'
   spec.add_development_dependency 'pry'
+  spec.add_development_dependency 'sinatra'
 end
