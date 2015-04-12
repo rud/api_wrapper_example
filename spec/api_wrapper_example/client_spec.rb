@@ -36,3 +36,33 @@ describe ApiWrapperExample::Client, 'create a mitten' do
     assert(called, 'Expected response to be yielded')
   end
 end
+
+describe ApiWrapperExample::Client, 'single mitten show' do
+  let(:client) { ApiWrapperExample::Client.new }
+
+  it 'cannot find a lost mitten' do
+    mitten_name = "#{TEST_VERSION}-all-is-lost"
+
+    called = false
+    client.mitten(name: mitten_name) do |response|
+      called = true
+      assert_equal(404, response.status)
+    end
+
+    assert(called, 'Expected response to be yielded')
+  end
+
+  it 'with great fortune finds an existing mitten' do
+    mitten_name = "#{TEST_VERSION}-will-be-found"
+    client.create_mitten(name: mitten_name, color: 'powder-blue')
+
+    called = false
+    found_mitten = client.mitten(name: mitten_name) do |response|
+      called = true
+      assert_equal(200, response.status)
+    end
+
+    assert(called, 'Expected response to be yielded')
+    assert_equal('powder-blue', found_mitten.fetch('color'))
+  end
+end
