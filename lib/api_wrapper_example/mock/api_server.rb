@@ -4,8 +4,15 @@ module ApiWrapperExample
   module Mock
     # Simple in-memory API server implementation
     class ApiServer < ::Sinatra::Base
+      REPO = {}
+
       get '/v1/mittens' do
-        JSON.dump({})
+        JSON.dump(REPO)
+      end
+
+      post '/v1/mittens/:name' do |name|
+        REPO[name] = params[:color]
+        JSON.dump('status' => 'ok')
       end
 
       # Fallback to ease implementing missing methods:

@@ -24,4 +24,3 @@ describe ApiWrapperExample::Client, 'create a mitten' do
     )
   end
 end
-
