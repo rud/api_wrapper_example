@@ -12,7 +12,7 @@ module ApiWrapperExample
 
       post '/v1/mittens/:name' do |name|
         REPO[name] = params[:color]
-        JSON.dump('status' => 'ok')
+        [201, JSON.dump('status' => 'ok')]
       end
 
       # Fallback to ease implementing missing methods:
