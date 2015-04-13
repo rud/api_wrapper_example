@@ -10,6 +10,15 @@ module ApiWrapperExample
         JSON.dump(REPO)
       end
 
+      get '/v1/mittens/:name' do |name|
+        halt 404 unless REPO.key?(name)
+
+        [200, JSON.dump(
+          'name' => name,
+          'color' => REPO[name]
+        )]
+      end
+
       post '/v1/mittens/:name' do |name|
         REPO[name] = params[:color]
         [201, JSON.dump('status' => 'ok')]
